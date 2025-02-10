@@ -76,10 +76,11 @@ runAction = (action, evt) ->
       # in case of snippet expansion: expand abbreviation if we currently on last
       # tabstop
       se = activeEditor.snippetExpansion
-      if se.tabStopIndex + 1 >= se.tabStopMarkers.length
-        se.destroy()
-      else
-        return evt.abortKeyBinding()
+      if se.tabStopMarkers
+        if se.tabStopIndex + 1 >= se.tabStopMarkers.length
+          se.destroy()
+        else
+          return evt.abortKeyBinding()
 
   if action is 'toggle_comment' and (toggleCommentSyntaxes.indexOf(syntax) is -1 or not atom.config.get 'emmet.useEmmetComments')
     return evt.abortKeyBinding()
